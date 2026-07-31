@@ -139,7 +139,7 @@
 #include "pluginManager/ccPluginUIManager.h"
 
 // 3D mouse handler
-#ifdef CC_3DXWARE_SUPPORT
+#ifdef CC_3DMOUSE_SUPPORT
 #include "cc3DMouseManager.h"
 #endif
 
@@ -444,19 +444,16 @@ void MainWindow::decreasePointSize()
 
 void MainWindow::setupInputDevices()
 {
-#ifdef CC_3DXWARE_SUPPORT
+#ifdef CC_3DMOUSE_SUPPORT
 	m_3DMouseManager = new cc3DMouseManager(this, this);
 	m_UI->menuFile->insertMenu(m_UI->actionCloseAll, m_3DMouseManager->menu());
-#endif
-
-#if defined(CC_3DXWARE_SUPPORT)
 	m_UI->menuFile->insertSeparator(m_UI->actionCloseAll);
 #endif
 }
 
 void MainWindow::destroyInputDevices()
 {
-#ifdef CC_3DXWARE_SUPPORT
+#ifdef CC_3DMOUSE_SUPPORT
 	delete m_3DMouseManager;
 	m_3DMouseManager = nullptr;
 #endif
@@ -7284,7 +7281,7 @@ void MainWindow::activateTranslateRotateMode()
 
 	if (!m_transTool)
 		m_transTool = new ccGraphicalTransformationTool(this);
-	assert(m_transTool->getNumberOfValidEntities() == 0);
+
 	m_transTool->linkWith(win);
 
 	bool rejectedEntities = false;
